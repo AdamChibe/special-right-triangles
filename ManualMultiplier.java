@@ -27,6 +27,7 @@ public class ManualMultiplier
         }
         return temp;
     }
+    
     public int[] flip(int[] array)
     {
         int[] temp = new int[array.length];
@@ -36,34 +37,7 @@ public class ManualMultiplier
         } 
         return temp;
     }
-    /*
-    public int[] flip(int[] array)
-    {
-        offset = 0;
-        int[] temp = new int[array.length];
-        for(int i = 0; i < temp.length ; i++)
-        {
-            int endOfArray = array[array.length - 1 - offset];
-            if(endOfArray > 0)
-            {
-                for(int b = 0 ; b < endOfArray; b++)
-                {
-                    temp[b] = array[array.length - 1 - b - offset];
-                }
-            }
-            else
-            {
-                offset++;
-            }
-        }
-        int[] returnArray = new int[temp.length - offset];
-        for(int i = 0; i < returnArray.length; i++)
-        {
-            returnArray[i] = temp[i];
-        } 
-        return returnArray;
-    }
-    */
+    
     public int[] multiply(int[] first, int[] second)
     {
         int[] temp = new int[first.length + second.length];
@@ -104,6 +78,18 @@ public class ManualMultiplier
         for(int i = 0; i < array.length;i++)
         {
             temp+= array[i];
+        }
+        boolean unsimplified = true;
+        while(unsimplified)
+        {
+            if(temp.substring(0, 1).equals("0"))
+            {
+                temp = temp.substring(1, temp.length());
+            }
+            else
+            {
+                unsimplified = false;
+            }
         }
         return temp;
     }
