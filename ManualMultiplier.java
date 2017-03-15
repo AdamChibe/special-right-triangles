@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 /**
  * Write a description of class ManualMultiplier here.
  * 
@@ -6,76 +7,67 @@
  */
 public class ManualMultiplier
 {
+    /*
     private int[] first = new int[1];
     private int[] second = new int[1];
     private int[] result = new int[1];
     public ManualMultiplier(String one, String two)
     {
-        first = new int[one.length()];
-        second = new int[two.length()];
-        for(int i = 0; i < one.length() ; i++)
-        {
-            first[i] = Integer.parseInt(one.substring(i, i+1));
-        }
-        for(int i = 0; i < two.length() ; i++)
-        {
-            second[i] = Integer.parseInt(two.substring(i, i+1));
-        }
+        first = toIntArray(one);
+        second = toIntArray(two);
     }
-    /*
-     * need to make more methods like 
-     * flip
-     * convert int[] to Strin 
-     * visa versa ^^^
-     */
-    public String doMath()
+    */
+    
+    public int[] toIntArray(String str)
     {
-        int[] tempfirst = new int[first.length];
-        int[] tempsecond = new int[second.length];
-        for(int i = 0; i < tempfirst.length ; i++)
+        int[] temp = new int[str.length()]; 
+        for(int i = 0; i < str.length() ; i++)
         {
-            tempfirst[i] = first[first.length - 1 - i];
+            temp[i] = Integer.parseInt(str.substring(i, i+1));
         }
-        for(int i = 0; i < tempsecond.length ; i++)
-        {
-            tempsecond[i] = second[second.length - 1 - i];
-        }
-        result = new int[100];
-        int resultindex = 0;
-        int keeper = 0;
-        for(int i = 0; i < tempfirst.length ; i++)
-        {
-            resultindex = i;
-            for(int j = 0; j < tempsecond.length ; j++)
-            {
-                result[resultindex] += tempsecond[j] * tempfirst[i];
-                resultindex++;
-            }
-            keeper++;
-        }
-        
-        for(int i = 0; i < result.length ; i++)
-        {
-            if(result[i] > 10)
-            {
-                result[i + 1] += (int)(result[i]/10);
-            }
-        }
-        
-        int[] tempresult = new int[result.length];
-        for(int i = 0; i < tempresult.length ; i++)
-        {
-            tempresult[i] = result[result.length - 1 - i];
-        }
-        return print(tempresult);
+        return temp;
     }
     
-    public String print(int[] a)
+    public int[] flip(int[] array)
     {
-        String temp = "";
-        for(int i = 0; i < a.length ; i++)
+        int[] temp = new int[array.length]; 
+        for(int i = 0; i < array.length ; i++)
         {
-            temp += a[i];
+            temp[i] = array[array.length - 1 - i];
+        }
+        return temp;
+    }
+    
+    public int[] multiply(int[] first, int[] second)
+    {
+        int[] temp = new int[first.length + second.length];
+        int index = 0;
+        for(int i = 0; i < first.length ; i++)
+        {
+            index = 0;
+            for(int j = 0; i < second.length ; j++)
+            {
+                temp[index] += first[i] * second[j];
+                index++;
+            }     
+        }
+        return temp;
+    }
+    
+    public int[] condense(int[] array)
+    {
+        int[] temp = new int[array.length + 1];
+        for(int i = 0; i < array.length ; i++)
+        {
+            temp[i] = array[i];
+        }
+        for(int i = 0; i < temp.length ; i++)
+        {
+           if(temp[i] >=10)
+           {
+               temp[i+1] += (int)(temp[i]/10);
+               temp[i] %= 10;
+           }
         }
         return temp;
     }
