@@ -7,16 +7,16 @@ import java.util.ArrayList;
  */
 public class ManualMultiplier
 {
-    /*
-    private int[] first = new int[1];
-    private int[] second = new int[1];
-    private int[] result = new int[1];
-    public ManualMultiplier(String one, String two)
+    private int offset = 0;
+    public String findProduct(String first, String second)
     {
-        first = toIntArray(one);
-        second = toIntArray(two);
+        int[] tempFirst = toIntArray(first);
+        int[] tempSecond = toIntArray(second);
+        tempFirst = flip(tempFirst);
+        tempSecond = flip(tempSecond);
+        int[] result = multiply(tempFirst, tempSecond);
+        return arrayToString(flip(condense(result)));
     }
-    */
     
     public int[] toIntArray(String str)
     {
@@ -27,25 +27,51 @@ public class ManualMultiplier
         }
         return temp;
     }
-    
     public int[] flip(int[] array)
     {
-        int[] temp = new int[array.length]; 
-        for(int i = 0; i < array.length ; i++)
+        int[] temp = new int[array.length];
+        for(int i = 0; i < temp.length; i++)
         {
-            temp[i] = array[array.length - 1 - i];
-        }
+            temp[i] = array[array.length - 1 -i];
+        } 
         return temp;
     }
-    
+    /*
+    public int[] flip(int[] array)
+    {
+        offset = 0;
+        int[] temp = new int[array.length];
+        for(int i = 0; i < temp.length ; i++)
+        {
+            int endOfArray = array[array.length - 1 - offset];
+            if(endOfArray > 0)
+            {
+                for(int b = 0 ; b < endOfArray; b++)
+                {
+                    temp[b] = array[array.length - 1 - b - offset];
+                }
+            }
+            else
+            {
+                offset++;
+            }
+        }
+        int[] returnArray = new int[temp.length - offset];
+        for(int i = 0; i < returnArray.length; i++)
+        {
+            returnArray[i] = temp[i];
+        } 
+        return returnArray;
+    }
+    */
     public int[] multiply(int[] first, int[] second)
     {
         int[] temp = new int[first.length + second.length];
         int index = 0;
         for(int i = 0; i < first.length ; i++)
         {
-            index = 0;
-            for(int j = 0; i < second.length ; j++)
+            index = i;
+            for(int j = 0; j < second.length ; j++)
             {
                 temp[index] += first[i] * second[j];
                 index++;
@@ -68,6 +94,16 @@ public class ManualMultiplier
                temp[i+1] += (int)(temp[i]/10);
                temp[i] %= 10;
            }
+        }
+        return temp;
+    }
+    
+    public String arrayToString(int[] array)
+    {
+        String temp = "";
+        for(int i = 0; i < array.length;i++)
+        {
+            temp+= array[i];
         }
         return temp;
     }
